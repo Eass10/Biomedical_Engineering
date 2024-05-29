@@ -1,0 +1,31 @@
+#####this code for syn* degrated by ALP-mTOR_Complex
+
+Syn'=k3*Ros*s3-k4*Syn*k5*Beca*mTOR
+
+Casp'= (k18+k19*ERS+k20*mTOR)*(CaspT-Casp)/(Jca+CaspT-Casp)-(k21+k22*Beca)*Casp/(Jca+Casp)
+
+Beca'=(k13+k14*ERS)*(BecaT-Beca)/(Jbe+BecaT-Beca)-(k15+k16*Casp+k17*mTOR)*Beca/(Jbe+Beca)
+
+Ros'=k1*(1+s1+dsyn*((Syn/ksyn)^4/(1+(Syn/ksyn)^4)))-k2*Ros*s2
+
+ERS'=k6*Syn*k7*(ERST-ERS)-k8*ERS
+
+mTOR'=(k9+k10*ERS)*(mTORT-mTOR)-(k11+k12*Beca)*mTOR
+
+init Ros=0, Syn=0, ERS=0, mTOR=1, Beca=0, Casp=0
+
+
+par  s1=2, s2=1, k5=2.7, s3=1
+par k1=0.72, k2=0.72, k3=0.007, k4=0.007
+par k6=1
+par dsyn=15
+par ksyn=8.5
+par k7=0.5, k8=1, ERST=2
+par k9=2, k10=10, k11=0.4, k12=7, mTORT=1
+par Jbe=1, k13=2, k14=4, k15=1, k16=10, k17=0.6, BecaT=1
+par Jca=0.04, k18=1, k19=2, k20=2, k21=2, k22=4.5, CaspT=1
+
+@ total=3000
+@ bound=1e+6
+
+done
