@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[clc; clear all; close all;
+
+syms x t r
+assume(x,'real')
+
+%% r > 0
+disp('Positives:')
+assume(r,'positive');
+fx = r*x + x^3/(1+x^2)
+Fpts1 = solve(fx,x)
+r_trial = 1
+figure; fplot(subs(fx,r,r_trial),[-2,2])
+
+%% -1 < r < 0
+disp('-1 < r < 0:')
+assume(r>-1);assumeAlso(r<0);
+fx = r*x + x^3/(1+x^2)
+Fpts1 = solve(fx,x)
+r_trial = -0.5
+figure; fplot(subs(fx,r,r_trial),[-2,2])
+
+%% -1 = r
+disp('-1  = r')
+r = -1;
+fx = r*x + x^3/(1+x^2)
+Fpts1 = solve(fx,x)
+r_trial = -1
+figure; fplot(fx,[-2,2])
+
+
+%% r < -1
+disp(' r < -1')
+syms r
+assume(r<-1);
+fx = r*x + x^3/(1+x^2)
+Fpts1 = solve(fx,x)
+r_trial = -2
+figure; fplot(subs(fx,r,r_trial),[-2,2])
+
+
+
+]]></w:t></w:r></w:p></w:body></w:document>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Prac 1</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[clc; clear; close all]]></w:t></w:r></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Exercise 3.1</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[syms x t]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Fixed Points:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Use the independent variable x
+fx = % flow on the line
+% Symbolically: It is exact but only sometimes works
+Fpts1 = % use solve(??) for compute the fixed points
+% Numerically: Always works but it is not exact: double precision
+Fpts2 = % Use double(vpasolve(??))]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Stability:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Guess a 
+% Derivative:
+fxd = % Get Derivative of fx respect to x
+fxd_Fpts = subs(??,??,??) % Calculate derivative at Fixed Points
+disp('Stable Fixed Points:'); Fpts1(?<?)   % Those Fixed Points with neg der
+disp('Instable Fixed Points:'); Fpts1(?>?) % Those Fixed Points with pos der
+% Exploring Neighbourhood
+epsilon = 1e-3;
+neigB = % [?-epsilon,? + epsilon] % Move Epsilon around the Fixed Points
+fx_M = % double(subs(??,??,??))   % compute flow around fixed points
+vec_neigB = diff(??,1,2) % Estimate the slope
+disp('Stable Fixed Points:'); stb = Fpts1(vec_neigB<0)% Those Fixed Points with neg slope
+disp('Instable Fixed Points:'); nstb = Fpts1(vec_neigB>0)% Those Fixed Points with neg eslope]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Phase Portrait</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[xi = -?; xf = ?; % initial and final x points -4 to 4
+xsmp = ?:?:?  % Vector with setp 1e^-2
+figure; hold on;grid on; 
+plot(xsmp,zeros(size(xsmp)),'k'); % plot black line in x-axis where the flow is
+fplot(??,[??,??],'b'); % fx between xi,xf
+plot(?,zeros(size(??)),'o','MarkerFaceColor','r') % Plot filled circles fot stable fixed points
+plot(nstb,zeros(size(nstb)),'ro') % Plot non-circles fot stable fixed points
+rowPts = [-3,0,3] % points where a right/left marcker is going to be located
+xsmp_r = xsmp(subs(fx,x,xsmp)>0); % Get those points with positive flow
+xsmp_l = xsmp(subs(fx,x,xsmp)<0); % Get those points with negative flow
+plot(xsmp_r,zeros(size(xsmp_r)),'g');plot(-3,0,'>');plot(3,0,'>'); % plot positve in green
+plot(xsmp_l,zeros(size(xsmp_l)),'m');plot(0,0,'<'); % plot negative in magenta
+xlabel('x'); ylabel('dx'); grid on; title('Phase Portrait');]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Trajectories using Numeric Runge-Kutta ODE45 method</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[t0 = ??; tf = ??; % initial and final time 0 1
+fN_lmb = matlabFunction(??,"Vars",[t,x]) % lambda function: Convert symbolic fx to ODE45 usable function
+y0 = ??:0.5:??; tspam = [t0,tf]; % initial points of PVI from xi to 2
+[ts,ys] = % Use ode45(??,??, ??); for computing trajectories
+
+figure;hold on;
+plot(ts,ys); plot(0,y0,'o','MarkerFaceColor','g');
+axis([t0,tf,xi,xf])
+xlabel('t');ylabel('y(t)');grid on; title('plot')
+% Plot an aditional trajectory initialize at 2.001
+[ts,ys] = ode45(fN_lmb,tspam, 2.001);
+plot(ts,ys); plot(0,y0,'o','MarkerFaceColor','g');]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p></w:body></w:document>

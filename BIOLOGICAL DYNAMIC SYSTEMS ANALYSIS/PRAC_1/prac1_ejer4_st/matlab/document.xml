@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Exercise 4</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Solve Equation with K and r</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[syms t N(t) K r x
+assume(K,"positive");assume(r,"positive");
+dN = diff(N,t);
+EQN = dN - r*N*(1-N/K); % symbolic function
+Nsolg = dsolve(EQN)
+fN = r*N*(1-N/K) % symbolic flow]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Fixed Points:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Use the independent variable x instead of N(t)
+r = 1; K = 1; % Fix r and K to 1
+fx = r*x*(1-x/K)% write the flow in terms of x
+% Symbolically: It is exact but only sometimes works
+Fpts1 = solve(fx)% Use solve(?) for obtaining the Fixed points
+% Numerically: Always works but it is not exact: double precision
+Fpts2 = double(vpasolve(fx)) % use double(vpasolve(??)) for solving it numerically]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Stability:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Derivative:
+fxd = diff(fx) % Get Derivative of fx respect to x
+fxd_Fpts = subs(fxd,x,Fpts1) % Calculate derivative at Fixed Points
+disp('Stable Fixed Points:'); Fpts1(fxd_Fpts<0)   % Those Fixed Points with neg der
+disp('Unstable Fixed Points:'); Fpts1(fxd_Fpts>0) % Those Fixed Points with pos der
+% Exploring Neighbourhood
+epsilon = 1e-3;
+neigB = [Fpts1-epsilon, Fpts1+epsilon] % Move Epsilon around the Fixed Points
+fx_M = double(subs(fx,x,neigB))   % compute flow around fixed points
+vec_neigB = diff(fx_M,1,2) % Estimate the slope
+disp('Stable Fixed Points:'); stb = Fpts1(vec_neigB<0)% Those Fixed Points with neg slope
+disp('Unstable Fixed Points:'); nstb = Fpts1(vec_neigB>0)% Those Fixed Points with neg eslope]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Phase Portrait</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[figure; hold on;
+plot([0,1.5],zeros(1,2),'k');
+fplot(fx,[0,1.5],'b');
+plot(stb,zeros(size(stb)),'o','MarkerFaceColor','r')
+plot(nstb,zeros(size(nstb)),'ro')
+quiver([0.5,1.25],zeros(1,2),subs(fx,x,[0.5,1.25]),zeros(1,2),0.4,'b')
+xlabel('N'); ylabel('dN'); grid on; title('Phase Portrait');]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Trayectories using Numeric Runge-Kutta ODE45 method</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[t0 = 0; tf = 10; % init anf final time 0 10
+K = 1; r = 1;
+fN_lmb = @(t,y) r*y.*(1-y/K); % lambda function of the fx
+y0 = 0:0.2:2; tspan = [t0,tf]; % y0 Vector from 0 to 2 steps 0.2
+[ts,ys] = ode45(fN_lmb,tspan,y0)
+
+figure;hold on;
+plot(ts,ys);plot(0,y0,'o','MarkerFaceColor','g');
+axis([t0,tf,0,2])
+xlabel('t');ylabel('y(t)');grid on; title('plot');]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p></w:body></w:document>

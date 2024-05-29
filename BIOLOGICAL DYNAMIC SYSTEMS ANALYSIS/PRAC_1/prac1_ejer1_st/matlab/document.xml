@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Prac 1</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[close all; clc; clear;]]></w:t></w:r></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Exercise 1</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>General Solution</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[syms t x(t)
+dx = diff(x,t);
+EQN =   % write the differential equation
+xsol1 = % Use dsolve(??) command]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Particular Solution and Represent it with fplot</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Put the Initial Conditiont0 = ?; x0 = ?;
+xsol2 = % Use dsolve(??,[x(??)==??]) command
+figure; fplot(xsol2,[0,3]);
+xlabel('t');ylabel('x(t)');grid on; title('fplot')]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Represent the symbolic solution as numeric function</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[dt = % 1e-2; ts = ??:dt:??; % Create a time vecto ts between 0 to 3 and dt=0.01
+xs = % double(subs(xsol2,??,??)); % Evaluation de solution in ts
+figure; %plot(??,??,'??'); % Plot points (ts,xs) in red color
+xlabel('t');ylabel('x(t)');grid on;title('plot')]]></w:t></w:r></w:p></w:body></w:document>
